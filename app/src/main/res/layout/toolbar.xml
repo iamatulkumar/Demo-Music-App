@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/toolbar1"
+android:layout_width="fill_parent"
+android:layout_height="58dp"
+android:background="#cccccc"
+android:minHeight="?attr/actionBarSize"
+android:titleTextColor="#ffffff">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Spinner
+        android:id="@+id/music_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:spinnerMode="dropdown"
+        android:entries="@array/music_type"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:prompt="@string/choose_music_type" />
+    <Spinner
+        android:id="@+id/data_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:spinnerMode="dropdown"
+        android:entries="@array/data_limit"
+        android:paddingLeft="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:prompt="@string/choose_data_limit" />
+
+</RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>

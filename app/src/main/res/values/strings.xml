@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MusicApp</string>
+    <string name="choose_music_type">Choose a Type</string>
+
+    <string-array name="music_type">
+        <item>Artist</item>
+        <item>Album</item>
+
+    </string-array>
+    <string name="choose_data_limit">Choose a Type</string>
+
+    <string-array name="data_limit">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>9</item>
+        <item>10</item>
+
+    </string-array>
+
+</resources>
