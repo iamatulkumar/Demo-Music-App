@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="key"
+            type="String" />
+    </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_4sdp"
-            android:text="Sample title"
+            android:text="@{key}"
             android:textSize="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_4sdp"
             android:textStyle="bold"/>
@@ -26,4 +32,4 @@
 
 
 </LinearLayout>
-
+</layout>

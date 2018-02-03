@@ -1,5 +1,6 @@
 package com.zyla.musicapp;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Spinner;
 import com.zyla.musicapp.adapter.MusicAdapter;
+import com.zyla.musicapp.databinding.ActivityMainBinding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,8 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     String TAG ="Main Activity";
@@ -31,19 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private int mMusicType;
     private int mDataLimit;
     String line = "";
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.music_type)
-    Spinner mSpinnerMusicType;
-    @BindView(R.id.data_limit)
-    Spinner mSpinnerDataLimit;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        ButterKnife.bind(this);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
 
         mNameArtist = new HashMap<>();
         mNameAlbum = new HashMap<>();
@@ -58,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG,content[0]+" ---- " + content[1]+"    "+content[2]);
 
                 if(null == mNameArtist.get(content[1]) || mNameArtist.get(content[1]).isEmpty()){
-                    ArrayList<String> value = new ArrayList<String>();
+                    ArrayList<String> value = new ArrayList<>();
                     value.add(content[0]);
                     mNameArtist.put(content[1], value);
                 }else{
                     mNameArtist.get(content[1]).add(content[0]);
                 }
                 if(null == mNameAlbum.get(content[2]) || mNameAlbum.get(content[2]).isEmpty()){
-                    ArrayList<String> value = new ArrayList<String>();
+                    ArrayList<String> value = new ArrayList<>();
                     value.add(content[0]);
                     mNameAlbum.put(content[2], value);
                 }else{
@@ -75,12 +67,13 @@ public class MainActivity extends AppCompatActivity {
             }
             br.close();
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-            mRecyclerView.setLayoutManager(mLayoutManager);
+            binding.recyclerView.setLayoutManager(mLayoutManager);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        mSpinnerDataLimit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.toolbar.dataLimit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG,parent+" ---- " + view+"    "+position+ "   "  +id);
@@ -98,12 +91,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mSpinnerMusicType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        binding.toolbar.musicType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG,parent+" ---- " + view+"    "+position+ "   "  +id);
                 mMusicType = position;
-                mSpinnerDataLimit.setSelection(mDataLimit);
+                binding.toolbar.dataLimit.setSelection(mDataLimit);
                 if (position==0){
                     mFilterData=findSortList(mNameArtist,mDataLimit+1);
                     dataAdapter(mFilterData);
@@ -117,11 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
-
 
     /**
      *
@@ -155,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void dataAdapter(HashMap<String, ArrayList<String>> itemList){
         MusicAdapter adapter = new MusicAdapter(MainActivity.this, itemList);
-        mRecyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
     }
 
 

@@ -5,15 +5,16 @@ package com.zyla.musicapp.adapter;
  */
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.zyla.musicapp.R;
+import com.zyla.musicapp.databinding.ListItemBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,15 +22,14 @@ import java.util.Map;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemRowHolder> {
 
-    String TAG ="MusicAdapter";
+    private String TAG ="MusicAdapter";
 
-    HashMap<String, ArrayList<String>> nameList;
+    private HashMap<String, ArrayList<String>> nameList;
     private Context mContext;
-    ArrayList<String> key = new ArrayList<>();
-    ArrayList<ArrayList<String>> value = new ArrayList<>();
+    private ArrayList<String> key = new ArrayList<>();
+    private ArrayList<ArrayList<String>> value = new ArrayList<>();
 
     /**
-     *
      * @param context Mainactivity context
      * @param listHashMap hashmap which show in mainactivity
      */
@@ -38,7 +38,6 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemRowHolde
         this.mContext = context;
 
         for(Map.Entry<String, ArrayList<String>> e : nameList.entrySet()) {
-
             key.add(e.getKey());
             value.add(e.getValue());
             Log.d(TAG,key+"  "+value);
@@ -47,21 +46,21 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemRowHolde
 
     @Override
     public ItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, null);
-        ItemRowHolder viewHolder = new ItemRowHolder(v);
-        return viewHolder;
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, null);
+        return  new ItemRowHolder(view);
     }
+
 
     @Override
     public void onBindViewHolder(ItemRowHolder itemRowHolder, int i) {
 
-        itemRowHolder.itemTitle.setText(key.get(i));
+        itemRowHolder.bindheader(key.get(i));
 
         DataAdapter itemListDataAdapter = new DataAdapter(mContext, value.get(i));
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        itemRowHolder.recyclerViewList.setLayoutManager(mLayoutManager);
-        itemRowHolder.recyclerViewList.setAdapter(itemListDataAdapter);
+        itemRowHolder.binding.recyclerViewList.setLayoutManager(mLayoutManager);
+        itemRowHolder.binding.recyclerViewList.setAdapter(itemListDataAdapter);
 
     }
 
@@ -70,16 +69,16 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ItemRowHolde
         return (null != nameList ? nameList.size() : 0);
     }
 
-    public class ItemRowHolder extends RecyclerView.ViewHolder {
+    protected class ItemRowHolder extends RecyclerView.ViewHolder {
+        ListItemBinding binding;
 
-        protected TextView itemTitle;
-        protected RecyclerView recyclerViewList;
-
-        public ItemRowHolder(View view) {
+        private ItemRowHolder(View view) {
             super(view);
-            this.itemTitle = (TextView) view.findViewById(R.id.itemTitle);
-            this.recyclerViewList = (RecyclerView) view.findViewById(R.id.recycler_view_list);
+            binding = DataBindingUtil.bind(view);
+    }
 
+        private void bindheader(String str){
+            binding.setKey(str);
         }
     }
 

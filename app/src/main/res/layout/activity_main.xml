@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,8 +9,8 @@
     android:background="@color/gray"
     android:orientation="vertical"
     tools:context="com.zyla.musicapp.MainActivity">
-
-    <include layout="@layout/toolbar"/>
+    <include
+        android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -16,3 +19,4 @@
         android:scrollbars="vertical" />
 
 </LinearLayout>
+</layout>

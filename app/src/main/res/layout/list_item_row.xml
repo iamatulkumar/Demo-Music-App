@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="value"
+            type="String" />
+    </data>
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_2sdp"
-    android:background="#ffffff"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:background="#ffffff"
         android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_3sdp"
-            android:text="Sample title"
+            android:text="@{value}"
             android:textColor="@android:color/black"
             android:textSize="@dimen/_12sdp" />
 
@@ -24,6 +28,5 @@
         android:background="@color/gray"
         android:layout_marginTop="@dimen/_2sdp"
         />
-
-
     </LinearLayout>
+</layout>
